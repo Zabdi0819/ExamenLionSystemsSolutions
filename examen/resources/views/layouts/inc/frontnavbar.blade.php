@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bgCNav">
     <div class="container">
-      <a class="navbar-brand" href="{{ url('/') }}">
-        <img src="{{ asset('assets/images/JORAN.png') }}" style="width: 100px" alt="LOGO">
+      <a class="navbar-brand" href="{{ url('index') }}">
+        <img src="{{ asset('assets/images/LION.png') }}" style="width: 100px" alt="LOGO">
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -9,19 +9,16 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-                <a class="nav-link {{  Request::is('/') ? 'active':'';}}" href="{{ url('/') }}">Inicio</a>
+                <a class="nav-link {{  Request::is('index') ? 'active':'';}}" href="{{ url('index') }}">Inicio</a>
             </li>
           <li class="nav-item">
-            <a class="nav-link {{  Request::is('category') ? 'active':'';}}" aria-current="page" href="{{ url('category') }}">Categorías</a>
+            <a class="nav-link {{  Request::is('mr') ? 'active':'';}}" aria-current="page" href="{{ url('mr') }}"><i class="fa-solid fa-people-roof"></i> Salas</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {{  Request::is('cart') ? 'active':'';}}" aria-current="page" href="{{ url('cart') }}"><i class="fa fa-shopping-cart"></i> Carrito</a>
+            <a class="nav-link {{  Request::is('customer') ? 'active':'';}}" aria-current="page" href="{{ url('customer') }}"><i class="fa-solid fa-users-line"></i> Clientes</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {{  Request::is('wishlist') ? 'active':'';}}" aria-current="page" href="{{ url('wishlist') }}"> <i class="fas fa-heart"></i> Favoritos</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link {{  Request::is('know') ? 'active':'';}}" aria-current="page" href="{{ url('know') }}">Conócenos</a>
+            <a class="nav-link {{  Request::is('help') ? 'active':'';}}" aria-current="page" href="{{ url('help') }}"> <i class="fa-solid fa-circle-info"></i> Ayuda</a>
           </li>
 
           <!-- Authentication Links -->
@@ -44,11 +41,6 @@
                         {{ Auth::user()->name }}
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li>
-                            <a class="dropdown-item" href="{{ url('my-orders') }}">
-                                Mis órdenes
-                            </a>
-                        </li>
                         <li>
                             <a class="dropdown-item" href="{{ url('profile') }}">
                                 Mi perfil

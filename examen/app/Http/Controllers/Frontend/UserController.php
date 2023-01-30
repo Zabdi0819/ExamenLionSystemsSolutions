@@ -14,6 +14,11 @@ class UserController extends Controller
         return view('frontend.index');
     }
 
+    public function help()
+    {
+        return view('frontend.help');
+    }
+
     public function profile()
     {
         $user = User::where('id', Auth::id())->first();
