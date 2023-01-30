@@ -13,4 +13,34 @@ class CustomerController extends Controller
         $customers = Customer::all();
         return view('frontend.viewCustomer', compact('customers'));
     }
+
+    public function insert(Request $request)
+    {
+        $customer = new Customer();
+        $customer -> name = $request -> input('name');
+        $customer -> last_name = $request -> input('last_name');
+        $customer -> phone = $request -> input('phone');
+        $customer -> email = $request -> input('email');
+        $customer -> save();
+        return redirect('customer') -> with('status', "Cliente agregado exitosamente");
+    }
+
+    public function update(Request $request, $id)
+    {
+        $customer = Customer::find($id);
+        $customer = new Customer();
+        $customer -> name = $request -> input('name');
+        $customer -> last_name = $request -> input('last_name');
+        $customer -> phone = $request -> input('phone');
+        $customer -> email = $request -> input('email');
+        $customer -> update();
+        return redirect('customer')->with('status', "Cliente actualizado exitosamente");
+    }
+
+    public function destroy($id)
+    {
+        $customer = Customer::find($id);
+        $customer -> delete();
+        return redirect('customer')->with('status', "Cliente eliminado exitosamente");
+    }
 }
