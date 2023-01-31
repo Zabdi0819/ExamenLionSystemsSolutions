@@ -5,62 +5,53 @@
 @endsection
 
 @section('content')
-<div class="container py-5">
-    <div class="row">
-        <div class="col-md-12">
+<div class="py-3">
+    <div class="container">
+        <div class="card">
             <div class="card">
                 <div class="card-header bg-dark bg-gradient">
                     <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 align-self-center">
                         <div class="col">
-                            <h4 class="text-white">Nueva sala de juntas</h4>
+                            <h4 class="text-white">Lista de clientes</h4>
                         </div>
                         <div class="col">
-                            <a href="{{ url('index') }}" class="btn btn-warning bg-gradient float-end" style="width: 140px">Salir</a>
+                            <a href="{{ url('btn-insert-mr') }}" class="btn btn-warning bg-gradient float-end" style="width: 140px">Añadir nueva</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="card-body border bg-light bg-gradient shadow-lg">
-                <form action="{{ url('insert-mr') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="row">
-                        <div class="col-md-12 order-details">
-                            <h4>Asegúrate de que toda la información sea correcta</h4>
-                            <hr>
-                            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2">
-                                <div class="col">
-                                    <label for="">Nombre:</label>
-                                    <br>
-                                    <input type="text" class="form-control name" placeholder="Nombre" name="name">
-                                    <span id="name_error"></span>
-                                </div>
-                                <div class="col">
-                                    <label for="">Descripción:</label>
-                                    <br>
-                                    <textarea name="description" class="form-control description" placeholder="Descripción"></textarea>
-                                    <span id="description"></span>
-                                </div>
-                                <div class="col">
-                                    <label for="">Capacidad:</label>
-                                    <br>
-                                    <input type="number" class="form-control capacity" placeholder="Capacidad" name="capacity">
-                                    <span id="capacity"></span>
-                                </div>
-                                <div class="col">
-                                    <label for="">Precio por hora:</label>
-                                    <br>
-                                    <input type="number" class="form-control price_hour" placeholder="Precio por hora" name="price_hour">
-                                    <span id="price_hour_error"></span><br>
-                                </div>
-                                <div class="col">
-                                    <input type="file" class="form-control" name="image">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-                    <button type="submit" class="btn btn-primary">Agregar</button>
-                </form>
+            <div class="card-body" style="overflow-x:scroll; width: 100%">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Máx. capacidad</th>
+                            <th>Precio por hora</th>
+                            <th>Imagen</th>
+                            <th>Accción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($mr as $item)
+                            <tr>
+                                <td>{{ $item -> id }}</td>
+                                <td>{{ $item -> name }}</td>
+                                <td>{{ $item -> description }}</td>
+                                <td>{{ $item -> capacity }}</td>
+                                <td>{{ $item -> price_hour }}</td>
+                                <td>
+                                    <img src="{{ asset('assets/uploads/salas/'.$item -> image) }}" class= "imageView" alt="Image here">
+                                </td>
+                                <td>
+                                    <a href="{{ url('edit-mr/'.$item -> id) }}" class="btn btn-primary btn-sm">Editar</a>
+                                    <a href="{{ url('delete-mr/'.$item -> id) }}" onclick="return confirm('¿Estás seguro de eliminar la sala {{ $item -> name }}?')" class="btn btn-danger btn-sm">Eliminar</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
