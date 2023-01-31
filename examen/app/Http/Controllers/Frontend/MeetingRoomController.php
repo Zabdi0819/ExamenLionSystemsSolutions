@@ -10,12 +10,20 @@ class MeetingRoomController extends Controller
 {
     public function index()
     {
-        return view('frontend.viewMeetingRoom');
+        return view('frontend.meetingroom.viewMeetingRoom');
     }
 
     public function insert(Request $request)
     {
         $mr = new MeetingRoom();
+        if($request-> hasFile('image'))
+        {
+            $file = $request -> file('image');
+            $ext = $file -> getClientOriginalExtension();
+            $filename = time().'.'.$ext;
+            $file -> move('assets/uploads/salas/', $filename);
+            $mr -> image = $filename;
+        }
         $mr -> name = $request -> input('name');
         $mr -> description = $request -> input('description');
         $mr -> capacity = $request -> input('capacity');
@@ -41,4 +49,6 @@ class MeetingRoomController extends Controller
         $mr -> delete();
         return redirect('mr')->with('status', "Sala eliminada exitosamente");
     }
+
+
 }

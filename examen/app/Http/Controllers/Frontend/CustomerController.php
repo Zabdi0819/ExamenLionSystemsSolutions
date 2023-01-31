@@ -10,8 +10,13 @@ class CustomerController extends Controller
 {
     public function index()
     {
-        $customers = Customer::all();
-        return view('frontend.viewCustomer', compact('customers'));
+        $customer = Customer::all();
+        return view('frontend.customer.viewCustomer', compact('customer'));
+    }
+
+    public function add()
+    {
+        return view('frontend.customer.add');
     }
 
     public function insert(Request $request)
@@ -25,10 +30,15 @@ class CustomerController extends Controller
         return redirect('customer') -> with('status', "Cliente agregado exitosamente");
     }
 
+    public function edit($id)
+    {
+        $customer = Customer::find($id);
+        return view('frontend.customer.update', compact('customer'));
+    }
+
     public function update(Request $request, $id)
     {
         $customer = Customer::find($id);
-        $customer = new Customer();
         $customer -> name = $request -> input('name');
         $customer -> last_name = $request -> input('last_name');
         $customer -> phone = $request -> input('phone');
