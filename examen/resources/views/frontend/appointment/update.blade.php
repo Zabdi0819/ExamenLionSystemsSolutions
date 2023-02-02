@@ -1,7 +1,7 @@
 @extends('layouts.front')
 
 @section('title')
-    Bienvenido
+    Detalles de cita
 @endsection
 
 @section('content')

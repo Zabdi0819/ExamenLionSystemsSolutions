@@ -69,9 +69,12 @@ class AppointmentController extends Controller
                 $appointment -> total =  $price;
 
                 $hruse = new MRUse();
+                
                 $hruse -> mr_id = $request -> input('mr_id');
                 $hruse -> date = $date;
                 $hruse -> hr_start = $start;
+                $appointment -> save();
+                $hruse -> app_id = $appointment -> id;
                 $hruse -> save();
             } 
             else
@@ -96,12 +99,14 @@ class AppointmentController extends Controller
                         $hruse -> mr_id = $request -> input('mr_id');
                         $hruse -> date = $date;
                         $hruse -> hr_start = $second_hr2;
+                        $appointment -> save();
+                        $hruse -> app_id = $appointment -> id;
                         $hruse -> save();
                         $second_hr ++;
                     }
                 }
             }
-            $appointment -> save();
+            
             return redirect('customer') -> with('status', "Cita agendada exitosamente");
         }
     }
@@ -121,7 +126,9 @@ class AppointmentController extends Controller
 
     public function destroy($id)
     {
+        $hruse = MRUse::where('app_id', $id);
         $appointment = Appointment::find($id);
+        $hruse -> delete();
         $appointment -> delete();
         return redirect('appointment')->with('status', "Cita eliminada exitosamente");
     }

@@ -5,18 +5,26 @@ namespace App\Http\Controllers\Frontend;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\MRUse;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
     public function index()
     {
-        return view('frontend.index');
+        $now = Carbon::now('America/Mexico_City')->isoFormat('H');
+        $now2 = Carbon::createFromTime($now, 0, 0);
+        $today = Carbon::today();
+        $currentMr = MRUse::whereTime('hr_start', $now2)-> whereDate('date', $today)-> get();
+        return view('frontend.index', compact('currentMr'));
     }
 
-    public function help()
+    public function checkout($id)
     {
-        return view('frontend.help');
+        $hruse = MRUse::where('app_id', $id);
+        $hruse -> delete();
+        return redirect('index')->with('status', "Sala liberada");
     }
 
     public function profile()

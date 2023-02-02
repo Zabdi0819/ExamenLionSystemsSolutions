@@ -28,7 +28,8 @@ Route::middleware(['auth'])->group(function(){
     Route::get('index', [UserController::class, 'index']);
     Route::get('help', [UserController::class, 'help']);
     Route::get('profile', [UserController::class, 'profile']);
-    Route::put('update-profile', [UserController::class, 'updateprofile']);  
+    Route::put('update-profile', [UserController::class, 'updateprofile']);
+    Route::get('checkout/{id}', [UserController::class, 'checkout']);  
 
     Route::get('mr', [MeetingRoomController::class, 'index']);
     Route::get('btn-insert-mr', [MeetingRoomController::class, 'add']);
@@ -47,7 +48,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('appointment', [AppointmentController::class, 'index']);
     Route::get('btn-insert-app/{id}', [AppointmentController::class, 'add']);
     Route::post('insert-app/{id}', [AppointmentController::class, 'insert']);
-    Route::get('edit-app/{id}', [AppointmentController::class, 'edit']);
+    Route::get('view-app/{id}', [AppointmentController::class, 'edit']);
     Route::get('delete-app/{id}', [AppointmentController::class, 'destroy']);
 });
 

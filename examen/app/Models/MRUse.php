@@ -12,12 +12,16 @@ class MRUse extends Model
     protected $table = 'm_r_uses';
     protected $fillable = [
         'mr_id',
+        'app_id',
         'date',
         'hr_start',
     ];
 
-    public function appointment()
-    {
-        return $this->belongsTo(Appointment::class, 'app_id', 'id');
+    public function mr(){
+        return $this -> belongsTo(MeetingRoom::class, 'mr_id', 'id');
+    }
+
+    public function app(){
+        return $this -> belongsTo(Appointment::class, 'app_id', 'id');
     }
 }

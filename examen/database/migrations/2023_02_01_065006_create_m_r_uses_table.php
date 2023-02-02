@@ -16,6 +16,7 @@ class CreateMRUsesTable extends Migration
         Schema::create('m_r_uses', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('mr_id');
+            $table->bigInteger('app_id');
             $table->date('date');
             $table->time('hr_start');
             $table->timestamps();
