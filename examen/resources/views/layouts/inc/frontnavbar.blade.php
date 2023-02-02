@@ -18,7 +18,7 @@
             <a class="nav-link {{  Request::is('customer') ? 'active':'';}}" aria-current="page" href="{{ url('customer') }}"><i class="fa-solid fa-users-line"></i> Clientes</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {{  Request::is('help') ? 'active':'';}}" aria-current="page" href="{{ url('help') }}"> <i class="fa-solid fa-circle-info"></i> Ayuda</a>
+            <a class="nav-link {{  Request::is('appointment') ? 'active':'';}}" aria-current="page" href="{{ url('appointment') }}"> <i class="fa-solid fa-calendar-days"></i> Citas</a>
           </li>
 
           <!-- Authentication Links -->

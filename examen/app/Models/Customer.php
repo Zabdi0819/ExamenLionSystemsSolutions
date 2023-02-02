@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Appointment;
+use Illuminate\Support\Facades\App;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Customer extends Model
 {
@@ -15,4 +17,9 @@ class Customer extends Model
         'phone',
         'email',
     ];
+
+    //Relación uno a muchos con la tabla de citas
+    public function appointments(){
+        return $this -> hasMany(Appointment::class);
+    }
 }

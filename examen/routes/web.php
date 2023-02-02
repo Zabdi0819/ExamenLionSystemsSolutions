@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\UserController;
 use App\Http\Controllers\Frontend\CustomerController;
+use App\Http\Controllers\Frontend\AppointmentController;
 use App\Http\Controllers\Frontend\MeetingRoomController;
 
 /*
@@ -42,6 +43,10 @@ Route::middleware(['auth'])->group(function(){
     Route::get('edit-customer/{id}', [CustomerController::class, 'edit']);
     Route::put('update-customer/{id}', [CustomerController::class, 'update']);
     Route::get('delete-customer/{id}', [CustomerController::class, 'destroy']);
+
+    Route::get('appointment', [AppointmentController::class, 'index']);
+    Route::get('btn-insert-app/{id}', [AppointmentController::class, 'add']);
+    Route::post('insert-app/{id}', [AppointmentController::class, 'insert']);
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
