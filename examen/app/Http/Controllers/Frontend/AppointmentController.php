@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Models\MRUse;
 use Carbon\Carbon;
 use Hamcrest\Core\HasToString;
+use Psy\Readline\Hoa\Console;
 
 class AppointmentController extends Controller
 {
@@ -42,60 +43,66 @@ class AppointmentController extends Controller
         $appointment = new Appointment();
         $s = $request -> input('hr_start');
         $start = Carbon::createFromFormat('H', $s);
-        $appointment -> hr_start = $start;
         $date = Carbon::createFromFormat('d/m/Y', $request -> input('date')) -> format('Y-m-d');
-        $appointment -> date = $date;
+        $mrs = $request -> input('mr_id');
 
-        
-
-
-        $mr = MeetingRoom::find($request -> input('mr_id'));
-        
-        $appointment -> customer_id = $id;
-        $appointment -> mr_id = $request -> input('mr_id');
-        $appointment -> folio = "LION".rand(1111, 9999);
-        
-
-        
-        //$start = Carbon::createFromFormat('H:i', $request -> input('hr_start'))-> format('H:i');
-        
-        
-
-        $price = $mr -> price_hour;
-        if($request -> input('qty') == 1){
-            $e = (int)$s +1;
-            $end = Carbon::createFromFormat('H', $e);
-            
-            $appointment -> hr_end = $end;
-            $appointment -> total =  $price;
-
-            $hruse = new MRUse();
-            $hruse -> mr_id = $request -> input('mr_id');
-            $hruse -> date = $date;
-            $hruse -> hr_start = $start;
-            $hruse -> save();
-        } 
+        if(MRUse::where('mr_id', $mrs)->where('date', $date)->whereTime('hr_start', $start)->exists())
+        {
+            return redirect('btn-insert-app/'.$id) -> with('status', "Esta sala ya está reservada en la hora y fecha seleccionada");
+        }
         else
         {
-            $e = (int)$s +2;
-            $end = Carbon::createFromFormat('H', $e);
-            $appointment -> hr_end = $end;
-            $price = $price * 2;
-            $appointment -> total =  $price;
-            $second_hr = (int)$s;
-            for($x=0; $x<2; $x++){
+            $mr = MeetingRoom::find($request -> input('mr_id'));
+        
+            $appointment -> customer_id = $id;
+            $appointment -> mr_id = $request -> input('mr_id');
+            $appointment -> folio = "LION".rand(1111, 9999);
+            $appointment -> hr_start = $start;
+            $appointment -> date = $date;
+
+            $price = $mr -> price_hour;
+            if($request -> input('qty') == 1){
+                $e = (int)$s +1;
+                $end = Carbon::createFromFormat('H', $e);
+                
+                $appointment -> hr_end = $end;
+                $appointment -> total =  $price;
+
                 $hruse = new MRUse();
-                $second_hr2 = Carbon::createFromFormat('H', $second_hr);
                 $hruse -> mr_id = $request -> input('mr_id');
                 $hruse -> date = $date;
-                $hruse -> hr_start = $second_hr2;
+                $hruse -> hr_start = $start;
                 $hruse -> save();
-                $second_hr ++;
+            } 
+            else
+            {
+                $s2 = (int)$s +1;
+                $start2 = Carbon::createFromFormat('H', $s2);
+                if(MRUse::where('mr_id', $mrs)->where('date', $date)->whereTime('hr_start', $start2)->exists())
+                {
+                    return redirect('btn-insert-app/'.$id) -> with('status', "Esta solo se puede reservar por una hora");
+                }
+                else
+                {
+                    $e = (int)$s +2;
+                    $end = Carbon::createFromFormat('H', $e);
+                    $appointment -> hr_end = $end;
+                    $price = $price * 2;
+                    $appointment -> total =  $price;
+                    $second_hr = (int)$s;
+                    for($x=0; $x<2; $x++){
+                        $hruse = new MRUse();
+                        $second_hr2 = Carbon::createFromFormat('H', $second_hr);
+                        $hruse -> mr_id = $request -> input('mr_id');
+                        $hruse -> date = $date;
+                        $hruse -> hr_start = $second_hr2;
+                        $hruse -> save();
+                        $second_hr ++;
+                    }
+                }
             }
+            $appointment -> save();
+            return redirect('customer') -> with('status', "Cita agendada exitosamente");
         }
-
-        $appointment -> save();
-        return redirect('customer') -> with('status', "Cita agendada exitosamente");
     }
-
 }
