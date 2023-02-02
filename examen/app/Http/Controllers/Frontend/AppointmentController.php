@@ -14,6 +14,7 @@ use Psy\Readline\Hoa\Console;
 
 class AppointmentController extends Controller
 {
+    //Constructor para definir el lenguaje de Carbon
     public function __construct()
     {
         Carbon::setLocale('es');
@@ -21,12 +22,19 @@ class AppointmentController extends Controller
 
     public function index()
     {
+        //Muestra la lista de reservas ordenadas por fechas
         $appointment = Appointment::all()->sortBy('hr_start')->sortBy('date');
         return view('frontend.appointment.viewAppointment', compact('appointment'));
     }
 
     public function add($id)
     {
+        /**El horaro de reservas es de 9:00 A.M. hasta las 8:00 P.M de lunes a domingo.
+         * Para solo permitir las reservas en ese horario, se llena un arreglo y se pasa como parámetro a la vista.
+         * El rango se va a mostrar en el componente de select.
+         * También se pasan como parámetros los datos del cliente seleccionado y la lista de las salas de juntas
+         * en existencia.
+         */
         $hours = [];
         $v = 0;
         for($i=9; $i<=20; $i++){
@@ -42,10 +50,14 @@ class AppointmentController extends Controller
     {
         $appointment = new Appointment();
         $s = $request -> input('hr_start');
+        //Formateo de fecha y hora para que MySQL no marque error.
         $start = Carbon::createFromFormat('H', $s);
         $date = Carbon::createFromFormat('d/m/Y', $request -> input('date')) -> format('Y-m-d');
         $mrs = $request -> input('mr_id');
 
+        /**Si la sala no tiene reserva en la fecha y hora seleccionada, se realiza la reserva, de lo contraio,
+         * mostrará el mensaje correspondiente
+         */
         if(MRUse::where('mr_id', $mrs)->where('date', $date)->whereTime('hr_start', $start)->exists())
         {
             return redirect('btn-insert-app/'.$id) -> with('status', "Esta sala ya está reservada en la hora y fecha seleccionada");
@@ -61,6 +73,12 @@ class AppointmentController extends Controller
             $appointment -> date = $date;
 
             $price = $mr -> price_hour;
+            /**
+             * De acuerdo al número de horas seleccionadas será la hora de fin.
+             * Se realizan dos insert, uno en la tabla de appointments y otro en la tabla de m_r_uses, esto con 
+             * la finalida de poder tener a la mano todas las horas reservada, especialmente si la sala se reserva por
+             * dos horas.
+             */
             if($request -> input('qty') == 1){
                 $e = (int)$s +1;
                 $end = Carbon::createFromFormat('H', $e);
@@ -73,12 +91,19 @@ class AppointmentController extends Controller
                 $hruse -> mr_id = $request -> input('mr_id');
                 $hruse -> date = $date;
                 $hruse -> hr_start = $start;
+                //Insert en tabla de appointments
                 $appointment -> save();
                 $hruse -> app_id = $appointment -> id;
+                //Insert en tabla de m_r_uses
                 $hruse -> save();
             } 
             else
             {
+                /**
+                 * Se suma una hora a la hora de inicio para validar que la sala se pueda reservar por dos horas
+                 * si así se desea, de lo contrario, solo se podrá reservar por una.
+                 * Esta es la utilidad de la tabla de las horas en uso (m_r_uses)
+                 */
                 $s2 = (int)$s +1;
                 $start2 = Carbon::createFromFormat('H', $s2);
                 if(MRUse::where('mr_id', $mrs)->where('date', $date)->whereTime('hr_start', $start2)->exists())
@@ -99,8 +124,10 @@ class AppointmentController extends Controller
                         $hruse -> mr_id = $request -> input('mr_id');
                         $hruse -> date = $date;
                         $hruse -> hr_start = $second_hr2;
+                        //Insert en tabla de appointments
                         $appointment -> save();
                         $hruse -> app_id = $appointment -> id;
+                        //Insert en tabla de m_r_uses
                         $hruse -> save();
                         $second_hr ++;
                     }
@@ -113,6 +140,12 @@ class AppointmentController extends Controller
 
     public function edit($id)
     {
+        /**
+         * Para solo permitir las reservas en ese horario, se llena un arreglo y se pasa como parámetro a la vista.
+         * El rango se va a mostrar en el componente de select.
+         * También se pasan como parámetros los datos de la reserva y la lista de las salas de juntas
+         * en existencia.
+         */
         $hours = [];
         $v = 0;
         for($i=9; $i<=20; $i++){
@@ -126,6 +159,10 @@ class AppointmentController extends Controller
 
     public function destroy($id)
     {
+        /**
+         * Si se elimina una reserva, también se eliminan los registros que correspondan a la reserva
+         * en la tabla de m_r_uses
+         */
         $hruse = MRUse::where('app_id', $id);
         $appointment = Appointment::find($id);
         $hruse -> delete();

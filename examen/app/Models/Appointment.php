@@ -26,6 +26,7 @@ class Appointment extends Model
         return $this -> belongsTo(Customer::class, 'customer_id', 'id');
     }
 
+    //Relación uno a uno con la tabla de sala de juntas
     public function mr(){
         return $this -> belongsTo(MeetingRoom::class, 'mr_id', 'id');
     }

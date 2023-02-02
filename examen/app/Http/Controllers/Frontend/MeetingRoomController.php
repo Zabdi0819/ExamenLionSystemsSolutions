@@ -11,6 +11,7 @@ class MeetingRoomController extends Controller
 {
     public function index()
     {
+        //Mostrar la lista de todas las salas
         $mr = MeetingRoom::all();
         return view('frontend.meetingroom.viewMeetingRoom', compact('mr'));
     }
@@ -22,7 +23,9 @@ class MeetingRoomController extends Controller
 
     public function insert(Request $request)
     {
+        //Insert de una nueva sala
         $mr = new MeetingRoom();
+        //Fragmento usado parasubir un archivo
         if($request-> hasFile('image'))
         {
             $file = $request -> file('image');
@@ -47,6 +50,7 @@ class MeetingRoomController extends Controller
 
     public function update(Request $request, $id)
     {
+        //Actualizar sala seleccionada
         $mr = MeetingRoom::find($id);
         if($request-> hasFile('image'))
         {
@@ -71,6 +75,7 @@ class MeetingRoomController extends Controller
 
     public function destroy($id)
     {
+        //Eliminar sala
         $mr = MeetingRoom::find($id);
         $mr -> delete();
         return redirect('mr')->with('status', "Sala eliminada exitosamente");

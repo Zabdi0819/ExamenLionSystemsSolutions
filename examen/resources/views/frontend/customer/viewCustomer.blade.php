@@ -21,6 +21,8 @@
                 </div>
             </div>
             <div class="card-body" style="overflow-x:scroll; width: 100%">
+                <h4>Seleccione el cliente al que le desea realizar la reserva</h4>
+                <hr>
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr>

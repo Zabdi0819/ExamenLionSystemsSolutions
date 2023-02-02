@@ -25,12 +25,14 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::middleware(['auth'])->group(function(){
+    //Rutas para el control de la navegación del ususario
     Route::get('index', [UserController::class, 'index']);
     Route::get('help', [UserController::class, 'help']);
     Route::get('profile', [UserController::class, 'profile']);
     Route::put('update-profile', [UserController::class, 'updateprofile']);
     Route::get('checkout/{id}', [UserController::class, 'checkout']);  
 
+    //Rutas para controlar las operaciones del CRUD de las salas de juntas
     Route::get('mr', [MeetingRoomController::class, 'index']);
     Route::get('btn-insert-mr', [MeetingRoomController::class, 'add']);
     Route::post('insert-mr', [MeetingRoomController::class, 'insert']);
@@ -38,6 +40,7 @@ Route::middleware(['auth'])->group(function(){
     Route::put('update-mr/{id}', [MeetingRoomController::class, 'update']);
     Route::get('delete-mr/{id}', [MeetingRoomController::class, 'destroy']);
 
+    //Rutas para controlar las operaciones del CRUD de los clientes
     Route::get('customer', [CustomerController::class, 'index']);
     Route::get('btn-insert-customer', [CustomerController::class, 'add']);
     Route::post('insert-customer', [CustomerController::class, 'insert']);
@@ -45,6 +48,7 @@ Route::middleware(['auth'])->group(function(){
     Route::put('update-customer/{id}', [CustomerController::class, 'update']);
     Route::get('delete-customer/{id}', [CustomerController::class, 'destroy']);
 
+    //Rutas para controlar las reservaciones
     Route::get('appointment', [AppointmentController::class, 'index']);
     Route::get('btn-insert-app/{id}', [AppointmentController::class, 'add']);
     Route::post('insert-app/{id}', [AppointmentController::class, 'insert']);

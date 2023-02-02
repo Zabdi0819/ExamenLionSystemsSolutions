@@ -12,7 +12,7 @@
                 <div class="card-header bg-dark bg-gradient">
                     <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 align-self-center">
                         <div class="col">
-                            <h4 class="text-white">Agendar cita</h4>
+                            <h4 class="text-white">Reservar</h4>
                         </div>
                         <div class="col">
                             <a href="{{ url('customer') }}" class="btn btn-danger bg-gradient float-end" style="width: 140px"

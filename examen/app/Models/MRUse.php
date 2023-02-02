@@ -17,10 +17,12 @@ class MRUse extends Model
         'hr_start',
     ];
 
+    //Relación uno a uno con la tabla de salas de juntas
     public function mr(){
         return $this -> belongsTo(MeetingRoom::class, 'mr_id', 'id');
     }
 
+    //Relación uno a uno con la tabla de reservas
     public function app(){
         return $this -> belongsTo(Appointment::class, 'app_id', 'id');
     }

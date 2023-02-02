@@ -10,6 +10,7 @@ class CustomerController extends Controller
 {
     public function index()
     {
+        //Lista de todos los clientes
         $customer = Customer::all();
         return view('frontend.customer.viewCustomer', compact('customer'));
     }
@@ -21,6 +22,7 @@ class CustomerController extends Controller
 
     public function insert(Request $request)
     {
+        //Insert un nuevo cliente
         $customer = new Customer();
         $customer -> name = $request -> input('name');
         $customer -> last_name = $request -> input('last_name');
@@ -38,6 +40,7 @@ class CustomerController extends Controller
 
     public function update(Request $request, $id)
     {
+        //Actualizar cliente existente
         $customer = Customer::find($id);
         $customer -> name = $request -> input('name');
         $customer -> last_name = $request -> input('last_name');
@@ -49,6 +52,7 @@ class CustomerController extends Controller
 
     public function destroy($id)
     {
+        //Eliminar cliente
         $customer = Customer::find($id);
         $customer -> delete();
         return redirect('customer')->with('status', "Cliente eliminado exitosamente");
