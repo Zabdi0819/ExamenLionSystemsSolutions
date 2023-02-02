@@ -105,4 +105,24 @@ class AppointmentController extends Controller
             return redirect('customer') -> with('status', "Cita agendada exitosamente");
         }
     }
+
+    public function edit($id)
+    {
+        $hours = [];
+        $v = 0;
+        for($i=9; $i<=20; $i++){
+            $hours[$v] = $i;
+            $v++;
+        }
+        $mr = MeetingRoom::all();
+        $appointment = Appointment::find($id);
+        return view('frontend.appointment.update', compact('appointment', 'hours', 'mr'));
+    }
+
+    public function destroy($id)
+    {
+        $appointment = Appointment::find($id);
+        $appointment -> delete();
+        return redirect('appointment')->with('status', "Cita eliminada exitosamente");
+    }
 }

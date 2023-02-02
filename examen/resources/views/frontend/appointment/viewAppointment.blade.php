@@ -43,8 +43,8 @@
                                 <td>{{ $item -> hr_end }}</td>
                                 <td>{{ $item -> mr -> name }}</td>
                                 <td>
-                                    <a href="{{ url('edit-customer/'.$item -> id) }}" class="btn btn-primary btn-sm">Editar</a>
-                                    <a href="{{ url('delete-customer/'.$item -> id) }}" onclick="return confirm('¿Estás seguro de eliminar a {{ $item -> name }} {{ $item -> last_name }} como cliente?')" class="btn btn-danger btn-sm">Eliminar</a>
+                                    <a href="{{ url('edit-app/'.$item -> id) }}" class="btn btn-primary btn-sm">Ver</a>
+                                    <a href="{{ url('delete-app/'.$item -> id) }}" onclick="return confirm('¿Estás seguro de eliminar la cita de {{ $item -> customer -> name }} {{ $item -> customer -> last_name }}?')" class="btn btn-danger btn-sm">Eliminar</a>
                                 </td>
                             </tr>
                         @endforeach

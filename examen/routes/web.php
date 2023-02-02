@@ -47,6 +47,8 @@ Route::middleware(['auth'])->group(function(){
     Route::get('appointment', [AppointmentController::class, 'index']);
     Route::get('btn-insert-app/{id}', [AppointmentController::class, 'add']);
     Route::post('insert-app/{id}', [AppointmentController::class, 'insert']);
+    Route::get('edit-app/{id}', [AppointmentController::class, 'edit']);
+    Route::get('delete-app/{id}', [AppointmentController::class, 'destroy']);
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
