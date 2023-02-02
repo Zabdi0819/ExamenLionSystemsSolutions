@@ -1,7 +1,7 @@
 @extends('layouts.front')
 
 @section('title')
-    Bienvenido
+    Reservar
 @endsection
 
 @section('content')
@@ -90,7 +90,7 @@
                     </div>
                     <hr>
                     <br>
-                    <button type="submit" class="btn btn-primary">Agendar</button>
+                    <button type="submit" class="btn btn-primary">Reservar</button>
                 </form>
             </div>
         </div>

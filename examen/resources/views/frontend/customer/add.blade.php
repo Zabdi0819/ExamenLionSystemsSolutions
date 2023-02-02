@@ -1,7 +1,7 @@
 @extends('layouts.front')
 
 @section('title')
-    Bienvenido
+    Agregar cliente
 @endsection
 
 @section('content')

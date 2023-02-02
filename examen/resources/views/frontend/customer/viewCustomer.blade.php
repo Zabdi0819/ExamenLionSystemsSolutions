@@ -1,7 +1,7 @@
 @extends('layouts.front')
 
 @section('title')
-    Bienvenido
+    Clientes
 @endsection
 
 @section('content')
@@ -43,7 +43,7 @@
                                 <td>
                                     <a href="{{ url('edit-customer/'.$item -> id) }}" class="btn btn-primary btn-sm">Editar</a>
                                     <a href="{{ url('delete-customer/'.$item -> id) }}" onclick="return confirm('¿Estás seguro de eliminar a {{ $item -> name }} {{ $item -> last_name }} como cliente?')" class="btn btn-danger btn-sm">Eliminar</a>
-                                    <a href="{{ url('btn-insert-app/'.$item -> id) }}" class="btn btn-primary btn-sm">Agendar cita</a>
+                                    <a href="{{ url('btn-insert-app/'.$item -> id) }}" class="btn btn-primary btn-sm">Reservar</a>
                                 </td>
                             </tr>
                         @endforeach

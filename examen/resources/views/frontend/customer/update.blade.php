@@ -1,7 +1,7 @@
 @extends('layouts.front')
 
 @section('title')
-    Bienvenido
+    Actualizar cliente
 @endsection
 
 @section('content')

@@ -1,7 +1,7 @@
 @extends('layouts.front')
 
 @section('title')
-    Detalles de cita
+    Detalles de reserva
 @endsection
 
 @section('content')

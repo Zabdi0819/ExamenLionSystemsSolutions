@@ -1,7 +1,7 @@
 @extends('layouts.front')
 
 @section('title')
-    Bienvenido
+    Actualizar sala de juntas
 @endsection
 
 @section('content')
@@ -12,7 +12,7 @@
                 <div class="card-header bg-dark bg-gradient">
                     <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 align-self-center">
                         <div class="col">
-                            <h4 class="text-white">Nueva sala de juntas</h4>
+                            <h4 class="text-white">Editar sala</h4>
                         </div>
                         <div class="col">
                             <a href="{{ url('mr') }}" class="btn btn-warning bg-gradient float-end" style="width: 140px"
@@ -27,7 +27,7 @@
                     @method('PUT')
                     <div class="row">
                         <div class="col-md-12 order-details">
-                            <h4>Asegúrate de que toda la información sea correcta</h4>
+                            <h4>Asegúrese de que toda la información sea correcta</h4>
                             <hr>
                             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2">
                                 <div class="col">
@@ -55,7 +55,7 @@
                                     <span id="price_hour_error"></span><br>
                                 </div>
                                 @if($mr -> image)
-                                    <img src="{{ asset('assets/uploads/salas/'.$mr -> image) }}" style="width: 150px; height: 110px" alt="Imagen de la sala">
+                                    <img src="{{ asset('assets/uploads/salas/'.$mr -> image) }}" style="width: 110px; height: 190px" alt="Imagen de la sala">
                                 @endif
                                 <div class="col">
                                     <input type="file" class="form-control" name="image">
@@ -64,7 +64,7 @@
                         </div>
                     </div>
                     <br>
-                    <button type="submit" class="btn btn-primary">Agregar</button>
+                    <button type="submit" class="btn btn-primary">Guardar cambios</button>
                 </form>
             </div>
         </div>

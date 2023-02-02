@@ -37,7 +37,7 @@ class UserController extends Controller
     {
         $user = User::where('id', Auth::id())->first();
         $user -> name = $request -> input('name');
-        $user -> lname = $request -> input('last_name');
+        $user -> last_name = $request -> input('last_name');
         $user -> phone = $request -> input('phone');
         $user -> email = $request -> input('email');
         $user -> update();

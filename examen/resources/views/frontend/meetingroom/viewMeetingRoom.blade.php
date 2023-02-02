@@ -1,7 +1,7 @@
 @extends('layouts.front')
 
 @section('title')
-    Bienvenido
+    Salas
 @endsection
 
 @section('content')
@@ -12,7 +12,7 @@
                 <div class="card-header bg-dark bg-gradient">
                     <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 align-self-center">
                         <div class="col">
-                            <h4 class="text-white">Lista de clientes</h4>
+                            <h4 class="text-white">Lista de salas</h4>
                         </div>
                         <div class="col">
                             <a href="{{ url('btn-insert-mr') }}" class="btn btn-warning bg-gradient float-end" style="width: 140px">Añadir nueva</a>

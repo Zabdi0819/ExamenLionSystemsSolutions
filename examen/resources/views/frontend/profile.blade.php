@@ -32,14 +32,14 @@
                                     <div class="col">
                                         <label for="">Nombre:</label>
                                         <br>
-                                        <input type="text" class="form-control fname" value="{{ Auth::user()->name }}" placeholder="Ingresa tu nombre completo" name="fname">
-                                        <span id="fname_error"></span>
+                                        <input type="text" class="form-control fname" value="{{ Auth::user()->name }}" placeholder="Ingresa tu nombre completo" name="name">
+                                        <span id="name_error"></span>
                                     </div>
                                     <div class="col">
                                         <label for="">Apellido:</label>
                                         <br>
-                                        <input type="text" class="form-control lname" value="{{ Auth::user()->last_name }}" placeholder="Ingresa tu apellido" name="lname">
-                                        <span id="lname_error"></span>
+                                        <input type="text" class="form-control lname" value="{{ Auth::user()->last_name }}" placeholder="Ingresa tu apellido" name="last_name">
+                                        <span id="last_name_error"></span>
                                     </div>
                                     <div class="col">
                                         <label for="">Correo:</label>

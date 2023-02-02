@@ -1,7 +1,7 @@
 @extends('layouts.front')
 
 @section('title')
-    Bienvenido
+    Agregar sala de juntas
 @endsection
 
 @section('content')
@@ -15,7 +15,7 @@
                             <h4 class="text-white">Nueva sala de juntas</h4>
                         </div>
                         <div class="col">
-                            <a href="{{ url('index') }}" class="btn btn-warning bg-gradient float-end" style="width: 140px">Salir</a>
+                            <a href="{{ url('mr') }}" class="btn btn-warning bg-gradient float-end" style="width: 140px">Salir</a>
                         </div>
                     </div>
                 </div>
